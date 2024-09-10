@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT IGNORE into Contacts (UserId,Name,Phone,Email) VALUES(?,?,?,?)");
+		$stmt = $conn->prepare("INSERT into Contacts (UserId,Name,Phone,Email) VALUES(?,?,?,?)");
 		$stmt->bind_param("ssss", $userId, $Name, $Phone, $Email);
 		$stmt->execute();
 		$stmt->close();
