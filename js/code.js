@@ -59,6 +59,11 @@ function doSignUp() {
 
 	document.getElementById("signupResult").innerHTML = "";
 
+	if (firstName == "" || lastName == "" || login == "" || password == "") {
+		document.getElementById("signupResult").innerHTML = "Missing value. Please populate all fields.";
+		return;
+	}
+
 	let tmp = { firstName: firstName, lastName: lastName, login: login, password: password };
 	let jsonPayload = JSON.stringify(tmp);
 
@@ -70,17 +75,11 @@ function doSignUp() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				let jsonObject = JSON.parse(xhr.responseText);
-				userId = jsonObject.id;
-
-				if (userId < 1) {
-					document.getElementById("firstName").value = "";
-					document.getElementById("lastName").value = "";
-					document.getElementById("signupName").value = "";
-					document.getElementById("signupPassword").value = "";
-					document.getElementById("signupResult").innerHTML = "Successfully signed up. Please Log In.";
-					return;
-				}
+				document.getElementById("firstName").value = "";
+				document.getElementById("lastName").value = "";
+				document.getElementById("signupName").value = "";
+				document.getElementById("signupPassword").value = "";
+				document.getElementById("signupResult").innerHTML = "Successfully signed up. Please Log In.";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -126,4 +125,37 @@ function doLogout() {
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+}
+
+function createContact() {
+	let name = document.getElementById("name").value;
+	let phone = document.getElementById("phone").value;
+	let email = document.getElementById("email").value;
+
+	if (name == "" || phone == "" || email == "") {
+		document.getElementById("createResult").innerHTML = "Missing values. Please populate all fields.";
+	}
+
+	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/CreateContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("name").value = "";
+				document.getElementById("phone").value = "";
+				document.getElementById("email").value = "";
+				document.getElementById("createResult").innerHTML = name + " has been successfully added as a contact.";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		document.getElementById("createResult").innerHTML = err.message;
+	}
 }
