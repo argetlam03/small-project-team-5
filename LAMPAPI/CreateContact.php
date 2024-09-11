@@ -1,7 +1,7 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$userID = $inData["userID"];
+	$userId = $inData["userId"];
 	$Name = $inData["Name"];
 	$Phone = $inData["Phone"];
 	$Email = $inData["Email"];
@@ -13,12 +13,12 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (UserID,Name,Phone,Email) VALUES(?,?,?,?)");
-		$stmt->bind_param("ssss", $userID, $Name, $Phone, $Email);
+		$stmt = $conn->prepare("INSERT into Contacts (UserId,Name,Phone,Email) VALUES(?,?,?,?)");
+		$stmt->bind_param("ssss", $userId, $Name, $Phone, $Email);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
+		returnWithError("Contact Added");
 	}
 
 	function getRequestInfo()
