@@ -2,10 +2,10 @@
 
     $inData = getRequestInfo();
     
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $login = $inData["login"];
-    $password = $inData["password"];
+    $firstName = $inData["FirstName"];
+    $lastName = $inData["LastName"];
+    $login = $inData["Login"];
+    $password = $inData["Password"];
 
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
     
@@ -19,10 +19,11 @@
 
         if ($result->num_rows > 0) {
             returnWithError("Login already exists");
-        } else {
+        } 
+        else {
             $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
-            
+
             if ($stmt->execute()) {
                 $id = $stmt->insert_id;
                 returnWithInfo($firstName, $lastName, $id);
@@ -30,6 +31,7 @@
                 returnWithError("Failed to register user");
             }
         }
+
 
         $stmt->close();
         $conn->close();
