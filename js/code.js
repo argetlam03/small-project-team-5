@@ -16,7 +16,7 @@ function doLogin() {
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = { login: login, password: password };
+	let tmp = { Login: login, Password: password };
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/Login.' + extension;
@@ -135,6 +135,7 @@ function createContact() {
 
 	if (name == "" || phone == "" || email == "") {
 		document.getElementById("createResult").innerHTML = "Missing values. Please populate all fields.";
+		return;
 	}
 
 	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
@@ -166,7 +167,7 @@ function searchContacts() {
 	let phone = document.getElementById("phone").value;
 	let email = document.getElementById("email").value;
 
-	let results = "";
+	document.getElementById("createResult").innerHTML = "";
 
 	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
 	let jsonPayload = JSON.stringify(tmp);
@@ -181,17 +182,7 @@ function searchContacts() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 				searchListResults = jsonObject;
-
-				for (let i = 0; i < jsonObject.results.length; i++) {
-					let contact = jsonObject.results[i]
-					results += contact.name + " " + contact.phone + " " + contact.email;
-					results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Update </button>`;
-					results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
-
-					if (i < jsonObject.results.length - 1) results += "<br />\r\n";
-				}
-
-				document.getElementById("searchList").innerHTML = results;
+				buildSearchList(-1);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -201,10 +192,62 @@ function searchContacts() {
 	}
 }
 
-function updateContact() {
+function buildSearchList(index) {
+	let results = "";
 
+	for (let i = 0; i < searchListResults.results.length; i++) {
+		let contact = searchListResults.results[i];
+		if (i == index) {
+			results += `<input type="text" id="name` + i + `" placeholder="Name" value="` + contact.name + `" />`;
+			results += `<input type="text" id="phone` + i + `" placeholder="Phone Number" value="` + contact.phone + `" />`;
+			results += `<input type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" />`;
+			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Update </button>`;
+			results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
+		}
+		else { 
+			results += contact.name + " " + contact.phone + " " + contact.email;
+			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="buildSearchList(` + i + `);"> Update </button>`;
+			results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
+		}
+
+		if (i < searchListResults.results.length - 1) results += "<br />\r\n";
+	}
+
+	document.getElementById("searchList").innerHTML = results;
 }
 
-function deleteContact() {
+function updateContact(index) {
+	let name = document.getElementById("name" + index).value;
+	let phone = document.getElementById("phone" + index).value;
+	let email = document.getElementById("email" + index).value;
+
+	if (name == "" || phone == "" || email == "") {
+		document.getElementById("createResult").innerHTML = "Missing values. Please populate all fields.";
+		return;
+	}
+
+	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/UpdateContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				searchContacts();
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		// TODO
+		return;
+	}
+}
+
+function deleteContact(index) {
 
 }
