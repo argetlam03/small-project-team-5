@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let searchListResults = "";
 
 function doLogin() {
 	userId = 0;
@@ -158,4 +159,52 @@ function createContact() {
 	catch (err) {
 		document.getElementById("createResult").innerHTML = err.message;
 	}
+}
+
+function searchContacts() {
+	let name = document.getElementById("name").value;
+	let phone = document.getElementById("phone").value;
+	let email = document.getElementById("email").value;
+
+	let results = "";
+
+	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/SearchContacts.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+				searchListResults = jsonObject;
+
+				for (let i = 0; i < jsonObject.results.length; i++) {
+					let contact = jsonObject.results[i]
+					results += contact.name + " " + contact.phone + " " + contact.email;
+					results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Update </button>`;
+					results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
+
+					if (i < jsonObject.results.length - 1) results += "<br />\r\n";
+				}
+
+				document.getElementById("searchList").innerHTML = results;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		document.getElementById("searchError").innerHTML = err.message;
+	}
+}
+
+function updateContact() {
+
+}
+
+function deleteContact() {
+
 }
