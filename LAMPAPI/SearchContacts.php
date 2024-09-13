@@ -12,11 +12,11 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and Phone LIKE ? and Email LIKE ? and UserID = ? and ID = ?");
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and Phone LIKE ? and Email LIKE ? and UserID = ?");
 		$Name = "%" . $inData["name"] . "%";
 		$Phone = "%" . $inData["phone"] . "%";
 		$Email = "%" . $inData["email"] . "%";
-		$stmt->bind_param("sssss", $Name, $Phone, $Email, $inData["userId"],$inData["ID"]);
+		$stmt->bind_param("ssss", $Name, $Phone, $Email, $inData["userId"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
