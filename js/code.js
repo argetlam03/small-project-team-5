@@ -65,7 +65,7 @@ function doSignUp() {
 		return;
 	}
 
-	let tmp = { firstName: firstName, lastName: lastName, login: login, password: password };
+	let tmp = { FirstName: firstName, LastName: lastName, Login: login, Password: password };
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/SignUp.' + extension;
@@ -76,6 +76,14 @@ function doSignUp() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+				userId = jsonObject.id;
+
+				if (userId < 1) {
+					document.getElementById("signupResult").innerHTML = jsonObject.error;
+					return;
+				}
+
 				document.getElementById("firstName").value = "";
 				document.getElementById("lastName").value = "";
 				document.getElementById("signupName").value = "";
@@ -133,6 +141,9 @@ function createContact() {
 	let phone = document.getElementById("phone").value;
 	let email = document.getElementById("email").value;
 
+	document.getElementById("searchError").innerHTML = "";
+	document.getElementById("searchList").innerHTML = "";
+
 	if (name == "" || phone == "" || email == "") {
 		document.getElementById("createResult").innerHTML = "Missing values. Please populate all fields.";
 		return;
@@ -169,7 +180,8 @@ function searchContacts() {
 
 	document.getElementById("createResult").innerHTML = "";
 
-	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let tmp = { userId: userId, name: name, phone: phone, email: email };
+
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/SearchContacts.' + extension;
@@ -181,6 +193,13 @@ function searchContacts() {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.name == "") {
+					document.getElementById("searchError").innerHTML = jsonObject.error;
+					document.getElementById("searchList").innerHTML = "";
+					return;
+				}
+
 				searchListResults = jsonObject;
 				buildSearchList(-1);
 			}

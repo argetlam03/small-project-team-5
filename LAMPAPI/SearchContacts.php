@@ -12,9 +12,11 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and UserID = ?");
-		$Name = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $Name, $inData["userId"]);
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and Phone LIKE ? and Email LIKE ? and UserID = ?");
+		$Name = "%" . $inData["name"] . "%";
+		$Phone = "%" . $inData["phone"] . "%";
+		$Email = "%" . $inData["email"] . "%";
+		$stmt->bind_param("ssss", $Name, $Phone, $Email, $inData["userId"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
@@ -26,7 +28,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"Name":"' . $row["Name"] . '", "Phone Number":"' . $row["Phone"] . '", "Email":"' . $row["Email"] . '"}';
+			$searchResults .= '{"name":"' . $row["Name"] . '", "phone":"' . $row["Phone"] . '", "email":"' . $row["Email"] . '"}';
 		}
 		
 		if( $searchCount == 0 )
@@ -55,7 +57,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"name":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
