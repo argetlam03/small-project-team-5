@@ -268,5 +268,33 @@ function updateContact(index) {
 }
 
 function deleteContact(index) {
+	let name = document.getElementById("name" + index).value;
+	let phone = document.getElementById("phone" + index).value;
+	let email = document.getElementById("email" + index).value;
 
+	if (name == "" || phone == "" || email == "") {
+		document.searchListResults("searchResult").innerHTML = "Missing values. Please populate all fields.";
+		return;
+	}
+
+	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/DeleteContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				searchContacts();
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		// TODO
+		return;
+	}
 }
