@@ -232,6 +232,7 @@ function buildSearchList(index) {
 		if (i < searchListResults.results.length - 1) results += "<br />\r\n";
 	}
 
+	document.getElementById("searchError").innerHTML = "";
 	document.getElementById("searchList").innerHTML = results;
 }
 
