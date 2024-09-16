@@ -1,12 +1,35 @@
 <html>
 <head>
 	<title>Bikini Bottom Contacts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unlock&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet">
+    
+
+    <style>  
+
+        h1 {
+        color: purple;
+        position: absolute;
+        left: 10px;
+        bottom: 400px;
+        font-family: "Unlock", serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 60px;
+        }
+
+
+    </style>
+
 </head>
 <body>
 
 <h1 id="title">Welcome to Bikini Bottom</h1>
+
+
 
 <div id="login">
 	<span id="login-title">Log In</span>
@@ -14,7 +37,9 @@
 	<input type="password" id="loginPassword" placeholder="Password"/><br />
 	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
 	<span id="loginResult"></span>
+
 </div>
+
 
 <div id="signUp">
 	<span id="signup-title">Sign Up</span>
@@ -25,6 +50,70 @@
 	<button type="button" id="signupButton" class="buttons" onclick="doSignUp();"> Sign Up </button>
 	<span id="signupResult"></span>
 </div>
+
+<style>
+
+#login {
+  background-color: #1b4098; /* needs to be rechosen */
+  border-color: #FAFAD2;
+  color: white;
+  border-style: solid;
+  border-width: 5px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 30px;
+  cursor: pointer;
+  width: 200px;
+  height: 270px; 
+  display: block;
+  border-radius: 8px;
+  padding: 5px;
+  position: relative;
+  left: 800;
+  bottom: 60px;
+  font-family: "Unlock", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+    
+}
+
+
+
+
+
+
+#signUp {
+  color: white;
+  background-color: #1b4098; /* needs to be rechosen */
+  border-color: #FAFAD2;
+  border-style: solid;
+  border-width: 5px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+  cursor: pointer;
+  width: 200px;
+  display: block;
+  border-radius: 8px;
+  padding: 5px;
+  position: relative;
+  left: 800px;
+  bottom: 200px;
+  font-family: "Unlock", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+}
+
+body {
+  background-image : url("https://www.wallpapertip.com/wmimgs/68-688681_bikini-bottom-spongebob-spongebob-movie-bikini-bottom.jpg");
+}
+
+
+</style>
 
 </body>
 </html>
