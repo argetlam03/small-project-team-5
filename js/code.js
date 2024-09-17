@@ -212,21 +212,21 @@ function searchContacts() {
 }
 
 function buildSearchList(index) {
-	let results = "";
+	let results = `<tr><th>Name</th><th>Phone Number</th><th>Email</th><th>Update</th><th>Delete</th></tr>`;
 
 	for (let i = 0; i < searchListResults.results.length; i++) {
 		let contact = searchListResults.results[i];
 		if (i == index) {
-			results += `<input type="text" id="name` + i + `" placeholder="Name" value="` + contact.name + `" />`;
-			results += `<input type="text" id="phone` + i + `" placeholder="Phone Number" value="` + contact.phone + `" />`;
-			results += `<input type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" />`;
-			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Enter </button>`;
-			results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
+			results += `<tr><td><input type="text" id="name` + i + `" placeholder="Name" value="` + contact.name + `" /></td>`;
+			results += `<td><input type="text" id="phone` + i + `" placeholder="Phone Number" value="` + contact.phone + `" /></td>`;
+			results += `<td><input type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" /></td>`;
+			results += `<td><button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Enter </button></td>`;
+			results += `<td><button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button></td></tr>`;
 		}
 		else { 
-			results += contact.name + " " + contact.phone + " " + contact.email;
-			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="buildSearchList(` + i + `);"> Update </button>`;
-			results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
+			results += `<tr><td>` + contact.name + `</td><td>` + contact.phone + `</td><td>` + contact.email + `</td>`;
+			results += `<td><button type="button" id="updateButton` + i + `" class="buttons" onclick="buildSearchList(` + i + `);"> Update </button></td>`;
+			results += `<td><button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button></td></tr>`;
 		}
 
 		if (i < searchListResults.results.length - 1) results += "<br />\r\n";
