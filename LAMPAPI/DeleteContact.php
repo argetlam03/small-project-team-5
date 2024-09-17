@@ -11,12 +11,12 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("DELETE FROM Contacts WHERE userId = ? AND id = ?");
+		$stmt = $conn->prepare("DELETE FROM Contacts WHERE userId = ? AND ID = ?");
 		$stmt->bind_param("ss", $userId, $id);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("Contact Deleted");
+		returnWithError("");
 	}
 
 	function getRequestInfo()

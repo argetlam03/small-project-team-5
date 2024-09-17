@@ -30,7 +30,7 @@ else
     {
         if($stmt->affected_rows > 0)
         {
-            echo 'Contact updated successfully';
+            returnWithError("");
         }
         else
         {

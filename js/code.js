@@ -194,7 +194,7 @@ function searchContacts() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 
-				if (jsonObject.name == "") {
+				if (jsonObject.error != "") {
 					document.getElementById("searchError").innerHTML = jsonObject.error;
 					document.getElementById("searchList").innerHTML = "";
 					return;
@@ -220,7 +220,7 @@ function buildSearchList(index) {
 			results += `<input type="text" id="name` + i + `" placeholder="Name" value="` + contact.name + `" />`;
 			results += `<input type="text" id="phone` + i + `" placeholder="Phone Number" value="` + contact.phone + `" />`;
 			results += `<input type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" />`;
-			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Update </button>`;
+			results += `<button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Enter </button>`;
 			results += `<button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button>`;
 		}
 		else { 
@@ -240,16 +240,17 @@ function updateContact(index) {
 	let name = document.getElementById("name" + index).value;
 	let phone = document.getElementById("phone" + index).value;
 	let email = document.getElementById("email" + index).value;
+	let contactId = searchListResults.results[index].contactId;
 
 	if (name == "" || phone == "" || email == "") {
 		document.getElementById("createResult").innerHTML = "Missing values. Please populate all fields.";
 		return;
 	}
 
-	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let tmp = { ID: contactId, userId: userId, Name: name, Phone: phone, Email: email };
 	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase + '/UpdateContact.' + extension;
+	let url = urlBase + '/UpdateContacts.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -257,28 +258,26 @@ function updateContact(index) {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.error != "") {
+					document.getElementById("createResult").innerHTML = jsonObject.error;
+					return;
+				}
+
 				searchContacts();
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		// TODO
+		document.getElementById("createResult").innerHTML = err.message;
 		return;
 	}
 }
 
 function deleteContact(index) {
-	let name = document.getElementById("name" + index).value;
-	let phone = document.getElementById("phone" + index).value;
-	let email = document.getElementById("email" + index).value;
-
-	if (name == "" || phone == "" || email == "") {
-		document.searchListResults("searchResult").innerHTML = "Missing values. Please populate all fields.";
-		return;
-	}
-
-	let tmp = { userId: userId, Name: name, Phone: phone, Email: email };
+	let tmp = { id: searchListResults.results[index].contactId, userId: userId };
 	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/DeleteContact.' + extension;
@@ -289,13 +288,19 @@ function deleteContact(index) {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.error != "") {
+					document.getElementById("createResult").innerHTML = jsonObject.error;
+					return;
+				}
 				searchContacts();
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		// TODO
+		document.getElementById("createResult").innerHTML = err.message;
 		return;
 	}
 }

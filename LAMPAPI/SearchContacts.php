@@ -12,7 +12,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and Phone LIKE ? and Email LIKE ? and UserID = ?");
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? and Phone LIKE ? and Email LIKE ? and UserID = ? ORDER BY Name");
 		$Name = "%" . $inData["name"] . "%";
 		$Phone = "%" . $inData["phone"] . "%";
 		$Email = "%" . $inData["email"] . "%";
@@ -28,8 +28,8 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"Name":"' . $row["Name"] . '", "Phone Number":"' . $row["Phone"] . '", 
-			"Email":"' . $row["Email"] . '","ContactID":"' . $row["ID"] .'"}';
+			$searchResults .= '{"name":"' . $row["Name"] . '", "phone":"' . $row["Phone"] . '", 
+			"email":"' . $row["Email"] . '","contactId":"' . $row["ID"] .'"}';
 		}
 		
 		if( $searchCount == 0 )
@@ -58,7 +58,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"name":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
