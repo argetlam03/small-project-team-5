@@ -1,4 +1,4 @@
-const urlBase = 'http://argetlam.xyz/LAMPAPI';
+const urlBase = 'http://www.processescop4331.com/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
