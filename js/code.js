@@ -1,4 +1,4 @@
-const urlBase = 'http://www.processescop4331.com/LAMPAPI';
+const urlBase = 'http://argetlam.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -219,7 +219,7 @@ function buildSearchList(index) {
 		if (i == index) {
 			results += `<tr><td><input type="text" id="name` + i + `" placeholder="Name" value="` + contact.name + `" /></td>`;
 			results += `<td><input type="text" id="phone` + i + `" placeholder="Phone Number" value="` + contact.phone + `" /></td>`;
-			results += `<td><input type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" /></td>`;
+			results += `<td><input class="email" type="text" id="email` + i + `" placeholder="Email" value="` + contact.email + `" /></td>`;
 			results += `<td><button type="button" id="updateButton` + i + `" class="buttons" onclick="updateContact(` + i + `);"> Enter </button></td>`;
 			results += `<td><button type="button" id="deleteButton` + i + `" class="buttons" onclick="deleteContact(` + i + `);"> Delete </button></td></tr>`;
 		}

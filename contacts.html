@@ -2,7 +2,7 @@
 <head>
 	<title>Bikini Bottom Contacts</title>
 	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/contacts.css" rel="stylesheet">
 
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() 
@@ -12,25 +12,42 @@
 	</script>
 </head>
 <body>
-
+<div class="wrapper">
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+	<div><span class="dot"></span></div>
+</div>
 <div id="logout">
     <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
 </div>
-
-<div id="createContact">
-	<span id="create-title">Add Contact</span>
-	<input type="text" id="name" placeholder="Name" />
-	<input type="text" id="phone" placeholder="Phone Number"/>
-	<input type="text" id="email" placeholder="Email"/>
-	<button type="button" id="addButton" class="buttons" onclick="createContact();"> Add </button>
-	<button type="button" id="searchButton" class="buttons" onclick="searchContacts();"> Search </button>
-	<span id="createResult"></span>
+</br></br>
+<div class="card">
+	<div id="createContact">
+		<span id="create-title">Add/Search Contacts</span>
+		<input type="text" id="name" placeholder="Name" />
+		<input type="text" id="phone" placeholder="Phone Number"/>
+		<input type="text" id="email" placeholder="Email"/>
+		<button type="button" id="addButton" class="buttons" onclick="createContact();"> Add </button>
+		<button type="button" id="searchButton" class="buttons" onclick="searchContacts();"> Search </button>
+		<span id="createResult"></span>
+	</div>
+	</br></br>
+	<div id="searchResults">
+		<span id="searchError"></span>
+		<table id="searchList"></table>
+	</div>
 </div>
-
-<div id="searchResults">
-	<span id="searchError"></span>
-	<table id="searchList"></table>
-</div>
-
 </body>
 </html>
