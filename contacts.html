@@ -4,6 +4,7 @@
 	<script type="text/javascript" src="js/code.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="css/contacts.css" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/0c514d5c3c.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() 
@@ -30,6 +31,7 @@
 	<div><span class="dot"></span></div>
 	<div><span class="dot"></span></div>
 </div>
+</br>
 <div id="logout">
     <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
 </div>
@@ -40,13 +42,12 @@
 		<input type="text" id="name" placeholder="Name" />
 		<input type="text" id="phone" placeholder="Phone Number"/>
 		<input type="text" id="email" placeholder="Email"/>
-		<button type="button" id="addButton" class="buttons" onclick="createContact();"> Add </button>
-		<button type="button" id="searchButton" class="buttons" onclick="searchContacts();"> Search </button>
-		<span id="createResult"></span>
+		<button type="button" id="addButton" class="buttons" onclick="createContact();"> <i class="fa-solid fa-plus"></i> </button>
+		<button type="button" id="searchButton" class="buttons" onclick="searchContacts();"> <i class="fa-solid fa-magnifying-glass"></i> </button>
 	</div>
 	</br></br>
 	<div id="searchResults">
-		<span id="searchError"></span>
+		<span id="error"></span>
 		<table id="searchList"></table>
 	</div>
 </div>

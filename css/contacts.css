@@ -1,6 +1,8 @@
 #logout {
     display: flex;
     justify-content: right;
+    margin-top: 5px;
+    margin-right: 20px;
 }
 
 body {
@@ -11,12 +13,13 @@ body {
 button {
     background: #FAFAD2;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
-    font-size: 11pt;
+    font-size: 14pt;
     font-family: Poppins;
     justify-content: center;
     min-width: 65px;
     border: 0;
     padding: 5px;
+    border-radius: 12px;
 }
 
 .card {
@@ -26,6 +29,7 @@ button {
     padding: 20px;
     margin-left: 50px;
     margin-right: 50px;
+    min-width: 700px;
 }
 
 #createContact {
@@ -45,30 +49,44 @@ button {
 
 }
 
-#searchResults {
+#error {
     display: flex;
     justify-content: center;
+}
 
+#searchList {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+#searchResults {
+    justify-content: center;
+    
     input {
-        margin-right: 10px;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     button {
-        margin-right: 10px;
+        margin: 0;
+    }
+
+    .col-space {
+        padding: 0 15px;
+        text-align: center;
     }
 }
 
 input {
     font-size: 12pt;
     font-family: Poppins;
+    min-width: 150px;
+    box-sizing: border-box;
 }
 
-.email {
-    min-width: 350px;
-}
 
-
-
-/* Credit: Diyorbek Olimov, https://codepen.io/diyorbek0309/pen/mdwbEve */
+ /* Credit: Diyorbek Olimov https://codepen.io/diyorbek0309 */
 * {
   margin: 0;
   padding: 0;
